@@ -377,6 +377,26 @@ class StatlogVehicleData(DataLoader):
         return train_features, train_classes
 
 
+class SeizureRecognitionData(DataLoader):
+    def __init__(self, path='data/seizure_recognition.csv', verbose=False, seed=1):
+        super().__init__(path, verbose, seed)
+
+    def _load_data(self):
+        self._data = pd.read_csv(self._path, header=0, index_col=0)
+
+    def data_name(self):
+        return 'SeizureRecognitionData'
+
+    def class_column_name(self):
+        return 'y'
+
+    def _preprocess_data(self):
+        self._data[self._data['y'] != 1] = 0
+
+    def pre_training_adjustment(self, train_features, train_classes):
+        return train_features, train_classes
+
+
 if __name__ == '__main__':
     cd_data = CreditDefaultData(verbose=True)
     cd_data.load_and_process()
