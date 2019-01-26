@@ -45,16 +45,36 @@ if __name__ == '__main__':
     print("Loading data")
     print("----------")
 
+    # ds1_details = {
+    #         'data': loader.PhishingData(verbose=verbose, seed=seed),
+    #         'name': 'phishing',
+    #         'readable_name': 'Phishing',
+    #     }
     ds1_details = {
-            'data': loader.CreditDefaultData(verbose=verbose, seed=seed),
-            'name': 'credit_default',
-            'readable_name': 'Credit Default',
+            'data': loader.SeizureRecognitionData(verbose=verbose, seed=seed),
+            'name': 'seizure_recognition',
+            'readable_name': 'Seizure Recognition',
         }
+    # ds2_details = {
+    #         'data': loader.HandwrittenDigitData(verbose=verbose, seed=seed),
+    #         'name': 'handwritten_digit',
+    #         'readable_name': 'Handwritten Digits',
+    #     }
     ds2_details = {
-            'data': loader.PenDigitData(verbose=verbose, seed=seed),
-            'name': 'pen_digits',
-            'readable_name': 'Handwritten Digits',
-        }
+        'data': loader.CreditDefaultData(verbose=verbose, seed=seed),
+        'name': 'credit_default',
+        'readable_name': 'Credit Default',
+    }
+    # ds2_details = {
+    #         'data': loader.PenDigitData(verbose=verbose, seed=seed),
+    #         'name': 'pen_digits',
+    #         'readable_name': 'Handwritten Digits',
+    #     }
+    # ds2_details = {
+    #     'data': loader.EyeStateData(verbose=verbose, seed=seed),
+    #     'name': 'eye_state',
+    #     'readable_name': 'Eye State',
+    # }
 
     if verbose:
         print("----------")

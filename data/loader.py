@@ -10,6 +10,7 @@ import sklearn.model_selection as ms
 from scipy.sparse import isspmatrix
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from scipy.io import arff
 
 import os
 import seaborn as sns
@@ -391,7 +392,73 @@ class SeizureRecognitionData(DataLoader):
         return 'y'
 
     def _preprocess_data(self):
-        self._data[self._data['y'] != 1] = 0
+        self._data.loc[self._data['y'] != 1, 'y'] = 0  # Look for seizures only (value == 1)
+
+    def pre_training_adjustment(self, train_features, train_classes):
+        return train_features, train_classes
+
+
+class HandwrittenDigitData(DataLoader):
+    def __init__(self, path='data/handwritten_digits.csv', verbose=False, seed=1):
+        super().__init__(path, verbose, seed)
+
+    def _load_data(self):
+        self._data = pd.read_csv(self._path, header=0, index_col=0)
+
+    def data_name(self):
+        return 'HandwrittenDigitData'
+
+    def class_column_name(self):
+        return '64'
+
+    def _preprocess_data(self):
+        self._data.loc[self._data['64'] == 0, '64'] = -1  # Look for '0's only
+        self._data.loc[self._data['64'] != -1, '64'] = 0
+        self._data['64'] = self._data['64'].abs()
+
+    def pre_training_adjustment(self, train_features, train_classes):
+        return train_features, train_classes
+
+
+class PhishingData(DataLoader):
+    def __init__(self, path='data/phishing.arff', verbose=False, seed=1):
+        super().__init__(path, verbose, seed)
+
+    def _load_data(self):
+        data = arff.loadarff(self._path)
+        self._data = pd.DataFrame(data[0])
+        self._data = self._data[self._data.columns].apply(pd.to_numeric)
+
+    def data_name(self):
+        return 'PhishingData'
+
+    def class_column_name(self):
+        return 'Result'
+
+    def _preprocess_data(self):
+        pass
+
+    def pre_training_adjustment(self, train_features, train_classes):
+        return train_features, train_classes
+
+
+class EyeStateData(DataLoader):
+    def __init__(self, path='data/eye_state.arff', verbose=False, seed=1):
+        super().__init__(path, verbose, seed)
+
+    def _load_data(self):
+        data = arff.loadarff(self._path)
+        self._data = pd.DataFrame(data[0])
+        self._data = self._data[self._data.columns].apply(pd.to_numeric)
+
+    def data_name(self):
+        return 'PhishingData'
+
+    def class_column_name(self):
+        return 'Result'
+
+    def _preprocess_data(self):
+        pass
 
     def pre_training_adjustment(self, train_features, train_classes):
         return train_features, train_classes
