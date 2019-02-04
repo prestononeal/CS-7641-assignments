@@ -81,8 +81,8 @@ def basic_results(clf, classes, training_x, training_y, test_x, test_y, params, 
         # TODO: Ensure this is an estimator that can handle this?
         best_estimator = cv.best_estimator_.fit(training_x, training_y)
         final_estimator = best_estimator._final_estimator
-        best_params = pd.DataFrame([final_estimator.get_params()])
-        best_params.to_csv('{}/{}_{}_best_params.csv'.format(OUTPUT_DIRECTORY, clf_type, dataset), index=False)
+        grid_best_params = pd.DataFrame([final_estimator.get_params()])
+        grid_best_params.to_csv('{}/{}_{}_best_params.csv'.format(OUTPUT_DIRECTORY, clf_type, dataset), index=False)
         logger.info(" - Grid search complete")
 
         final_estimator.write_visualization('{}/images/{}_{}_LC'.format(OUTPUT_DIRECTORY, clf_type, dataset))
@@ -295,14 +295,14 @@ def perform_experiment(ds, ds_name, ds_readable_name, clf, clf_name, clf_label, 
             if 'x_scale' in complexity_param:
                 x_scale = complexity_param['x_scale']
             make_complexity_curve(ds.features, ds.classes, complexity_param['name'], param_display_name,
-                                  complexity_param['values'], pipe,
+                                  complexity_param['values'], ds_clf.best_estimator_,
                                   clf_name, ds_name, ds_readable_name, x_scale,
                                   balanced_dataset=ds.balanced,
                                   threads=threads, verbose=verbose)
 
         if timing_params is not None:
             pipe.set_params(**timing_params)
-        make_timing_curve(ds.features, ds.classes, pipe, clf_name, ds_name, ds_readable_name,
+        make_timing_curve(ds.features, ds.classes, ds_clf.best_estimator_, clf_name, ds_name, ds_readable_name,
                           seed=seed, verbose=verbose)
 
     if iteration_details is not None:
