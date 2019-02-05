@@ -11,7 +11,7 @@ class DTExperiment(experiments.BaseExperiment):
 
     def perform(self):
         # TODO: Clean up the older alpha stuff?
-        alphas = np.arange(0., 0.01, 0.0005)
+        alphas = np.arange(0., 0.02, 0.0005)
         params = {'DT__criterion': ['gini', 'entropy'],  'DT__alpha': alphas,  # 'DT__max_depth': max_depths,
                   'DT__class_weight': ['balanced', None]}  # , 'DT__max_leaf_nodes': max_leaf_nodes}
         complexity_param = {'name': 'DT__alpha', 'display_name': 'Alphas', 'values': alphas}
