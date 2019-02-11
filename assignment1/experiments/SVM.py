@@ -27,17 +27,66 @@ class SVMExperiment(experiments.BaseExperiment):
         # Uncomment to select known best params from grid search. This will skip the grid search and just rebuild
         # the various graphs
         #
-        # Dataset 1:
-        # best_params_linear = {'C': 0.5, 'class_weight': 'balanced', 'loss': 'squared_hinge',
-        #                       'max_iter': 1478, 'tol': 0.06000001}
-        # best_params_rbf = {'C': 2.0, 'class_weight': 'balanced', 'decision_function_shape': 'ovo',
-        #                    'gamma': 0.05555555555555555, 'max_iter': -1, 'tol': 1e-08}
+        # Dataset 1 (credit default):
+        '''
+        best_params_linear = {
+            "C": 0.251,
+            "class_weight": "balanced",
+            "dual": False,
+            "fit_intercept": True,
+            "intercept_scaling": 1,
+            "loss": "squared_hinge",
+            "max_iter": 42,
+            "multi_class": "ovr",
+            "penalty": "l2",
+            "tol": 0.020000010000000002,
+            "verbose": False
+          }
+        best_params_rbf = {
+            "C": 0.751,
+            "cache_size": 200,
+            "class_weight": "balanced",
+            "coef0": 0,
+            "decision_function_shape": "ovo",
+            "degree": 3,
+            "gamma": 0.043478260869565216,
+            "kernel": "rbf",
+            "max_iter": -1,
+            "probability": False,
+            "shrinking": True,
+            "tol": 0.08000001,
+            "verbose": False
+          }
         # Dataset 2:
-        # best_params_linear = {'C': 1.0, 'class_weight': 'balanced', 'loss': 'hinge', 'dual': True,
-        #                       'max_iter': 70, 'tol': 0.08000001}
-        # best_params_rbf = {'C': 1.5, 'class_weight': 'balanced', 'decision_function_shape': 'ovo',
-        #                    'gamma': 0.125, 'max_iter': -1, 'tol': 0.07000001}
-
+        best_params_linear = {
+            "C": 0.251,
+            "class_weight": "balanced",
+            "dual": False,
+            "fit_intercept": True,
+            "intercept_scaling": 1,
+            "loss": "squared_hinge",
+            "max_iter": 42,
+            "multi_class": "ovr",
+            "penalty": "l2",
+            "tol": 0.020000010000000002,
+            "verbose": False
+          }
+        best_params_rbf = {
+            "C": 1.501,
+            "cache_size": 200,
+            "class_weight": "balanced",
+            "coef0": 0,
+            "decision_function_shape": "ovo",
+            "degree": 3,
+            "gamma": 0.0056179775280898875,
+            "kernel": "rbf",
+            "max_iter": -1,
+            "probability": False,
+            "shrinking": True,
+            "tol": 0.09000000999999999,
+            "verbose": False
+          }
+        '''
         # Linear SVM
         params = {'SVM__max_iter': iters, 'SVM__tol': tols, 'SVM__class_weight': ['balanced'],
                   'SVM__C': C_values}
