@@ -14,11 +14,11 @@ from func.nn.activation import RELU
 from base import *
 
 # Network parameters found "optimal" in Assignment 1
-INPUT_LAYER = 8
-HIDDEN_LAYER1 = 16
-HIDDEN_LAYER2 = 16
+INPUT_LAYER = 178
+HIDDEN_LAYER1 = 89
+HIDDEN_LAYER2 = 89
 OUTPUT_LAYER = 1
-TRAINING_ITERATIONS = 5001
+TRAINING_ITERATIONS = 3000
 OUTFILE = OUTPUT_DIRECTORY + '/NN_OUTPUT/NN_{}_LOG.csv'
 
 
@@ -48,7 +48,7 @@ def main(P, mate, mutate):
 
 if __name__ == "__main__":
     for p in [50]:
-        for mate in [20, 10]:
-            for mutate in [20, 10]:
+        for mate in [10]:
+            for mutate in [10]:
                 args = (p, mate, mutate)
                 main(*args)
