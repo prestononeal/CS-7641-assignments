@@ -1,4 +1,3 @@
-import itertools
 import logging
 import os
 import glob
@@ -9,13 +8,12 @@ import numpy as np
 import pandas as pd
 
 import matplotlib as mpl
-import matplotlib.axes as maxes
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 import matplotlib.cm as cm
 from kneed import KneeLocator
 
-from matplotlib import cycler
 from matplotlib.ticker import NullFormatter, FormatStrFormatter
 from os.path import basename
 
@@ -544,7 +542,7 @@ def read_and_plot_acc(problem, file, output_dir):
 
     title = '{} - {}: Accuracy vs Number of Clusters'.format(ds_readable_name, problem['name'])
     df = pd.read_csv(file).set_index('k')
-    p = plot_sse(title, df)
+    p = plot_acc(title, df)
     p = watermark(p)
     p.savefig(
         '{}/{}/{}_acc.png'.format(output_dir, problem['name'], ds_name),
